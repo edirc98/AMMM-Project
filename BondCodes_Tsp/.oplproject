@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?><project>
+	<version>1.0</version>
+	<configs>
+		<config default="true" name="TestConfig1" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.1.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig2" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.2.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig3" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.3.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig4" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.4.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig5" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.5.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig6" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.6.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig7" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.7.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig8" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.8.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig9" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.9.dat" type="data">
+			</ref>
+		</config>
+	</configs>
+	
+</project>
