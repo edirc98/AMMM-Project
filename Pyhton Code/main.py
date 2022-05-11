@@ -32,6 +32,14 @@ def main():
     InstanceGraph = Graph(Instance_data)
     InstanceGraph.GenerateGraph()
     
+    #Call the solver with the Graph data constructed
+    if solver == "GREEDY":
+        Greedy = Solver_Greedy(InstanceGraph)
+        Greedy.solve()
+    elif solver == "GRASP":
+        #TODO Implement GRASP
+        pass
+    
     
 
 
