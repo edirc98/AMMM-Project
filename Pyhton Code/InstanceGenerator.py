@@ -1,5 +1,11 @@
+import code
+import json
 from pyexpat.errors import codes
 import random 
+import os
+from turtle import clear
+
+from bleach import clean
 
 
 class InstanceGenerator:
@@ -25,7 +31,6 @@ class InstanceGenerator:
             valid = False
             self.code.clear()
             while valid == False:
-                tmpCode = []
                 for j in range (0,m):
                     #Gerate Code of 0s and 1s
                     digit = random.randint(0,1)
@@ -36,13 +41,47 @@ class InstanceGenerator:
                     self.codes.append(self.code.copy())
                     self.code.clear()
                     valid = True
+                else: self.code.clear()
               
-    def GenerateInstances(numInstances,min_n, max_n,min_m,max_m):
-        for i in range(0,numInstances):
+    def GenerateInstances(self):
+        for i in range(0,self.numInstances):
             #create combinations of n and m
-            n = random.randint(min_n,max_n)
-            m = random.randint(min_m,max_m)
-            if (2^m < n):
-                InstanceGenerator.GenerateInstance(n,m)
-                #Put the instance to a .json file
-                #TODO
+            validCombination = False
+            
+            while validCombination == False:
+                n = random.randint(self.min_n,self.max_n)
+                m = random.randint(self.min_m,self.max_m)
+                if (2^m < n):
+                    print("Generating instance with: n = " + str(n) + " m = " + str(m))
+                    validCombination = True
+                    InstanceGenerator.GenerateInstance(self,n,m)
+                    print("Codes generated: ")
+                    self.PrintCodes()
+                    
+                    #Put the instance to a .json file
+                    instanceDict = {
+                        "n": n,
+                        "m": m,
+                        "codes": self.codes
+                    }
+                    #Create the dictionari with the instance data
+                    json_data = json.dumps(instanceDict)
+                    
+                    #Create the path where the files will be stored if do not exists
+                    path = '/Instances/'
+                    if not os.path.exists(path):
+                        os.makedirs(path)
+
+                    #Create the file and write it to the corresponding.json
+                    filename = 'Instance_'+ str(i) + '.json'
+                    with open(filename, 'w') as outfile:
+                        json.dump(json_data, outfile)
+                        
+                    #clear the codes that just generated for the next one
+                    self.codes.clear()
+        
+    def PrintCodes(self):
+        print(self.codes)
+            
+                    
+                    
