@@ -78,8 +78,9 @@ class InstanceGenerator:
       
     def ReadInstance(self, InstanceFile):
         with open(InstanceFile) as json_file:
-            data = json.load(json_file)
-            print(data)
+            json_string = json.load(json_file)
+            data_dict = json.loads(json_string)
+            return data_dict
           
     def PrintCodes(self):
         print(self.codes)

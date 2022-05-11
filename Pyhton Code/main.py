@@ -1,4 +1,6 @@
 from InstanceGenerator import InstanceGenerator
+from Greedy import Graph
+from Greedy import Solver_Greedy
 
 ############## Configuration of Instance Generator################
 #Number of instances that will be generated
@@ -23,8 +25,12 @@ def main():
     InstanceGen = InstanceGenerator(numInstances,min_n, max_n, min_m,max_m)
     if(GenerateInstanes):
         InstanceGen.GenerateInstances()
+        
+    #Get the dictionari with the data form the instance
+    Instance_data = InstanceGen.ReadInstance(InstancesFolder + InstanceName)
     
-    InstanceGen.ReadInstance(InstancesFolder + InstanceName)
+    InstanceGraph = Graph(Instance_data)
+    InstanceGraph.GenerateGraph()
     
     
 
