@@ -12,9 +12,21 @@ min_m = 2
 #Maximum lenght of each code
 max_m = 5
 
+###################CONFIGURATION################
+#Bool if you want to generate instances or not
+GenerateInstanes = False
+InstancesFolder = "Instances/"
+InstanceName = "Instance_0.json"
+solver = "GREEDY" #Available: "GREEDY" // "GRASP"
+
 def main():
-    Instance = InstanceGenerator(numInstances,min_n, max_n, min_m,max_m)
-    Instance.GenerateInstances()
+    InstanceGen = InstanceGenerator(numInstances,min_n, max_n, min_m,max_m)
+    if(GenerateInstanes):
+        InstanceGen.GenerateInstances()
+    
+    InstanceGen.ReadInstance(InstancesFolder + InstanceName)
+    
+    
 
 
 main()

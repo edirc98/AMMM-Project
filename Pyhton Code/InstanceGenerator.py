@@ -63,18 +63,24 @@ class InstanceGenerator:
                     json_data = json.dumps(instanceDict)
                     
                     #Create the path where the files will be stored if do not exists
-                    path = '/Instances/'
+                    path = 'Instances/'
                     if not os.path.exists(path):
                         os.makedirs(path)
 
                     #Create the file and write it to the corresponding.json
                     filename = 'Instance_'+ str(i) + '.json'
-                    with open(filename, 'w') as outfile:
+                    with open(path+filename, 'w') as outfile:
                         json.dump(json_data, outfile)
                         
                     #clear the codes that just generated for the next one
                     self.codes.clear()
-        
+      
+      
+    def ReadInstance(self, InstanceFile):
+        with open(InstanceFile) as json_file:
+            data = json.load(json_file)
+            print(data)
+          
     def PrintCodes(self):
         print(self.codes)
             
