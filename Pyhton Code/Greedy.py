@@ -77,15 +77,16 @@ class Solver_Greedy:
                     #Add Nodes that there are not conected to any other node
                     if(self.graph.nodes[j].FromId == -1 and self.graph.nodes[j].ToId == -1):
                         #cadidate = (cost,i(fromID),j(toID),node)
-                        candidateNode = (self.graph.costMatrix[i][j],self.graph.nodes[i].id,self.graph.nodes[j].id,self.graph.nodes[j])
+                        candidateNode = (self.graph.costMatrix[self.solution[i].id][self.graph.nodes[j].id],self.solution[i].id,self.graph.nodes[j].id,self.graph.nodes[j])
                         candidates.append(candidateNode)
                     #Check the nodes that have 1 conection to other node
+                    
                     
         
         #Sort the candidates by the cost, puting the minimun cost at the beguining
         candidates.sort(key=lambda x:x[0])
         #Return the sorted list
-        #print(candidates)
+        print(candidates)
         return candidates
 
 
