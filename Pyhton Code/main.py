@@ -18,7 +18,7 @@ max_m = 5
 #Bool if you want to generate instances or not
 GenerateInstanes = False
 InstancesFolder = "Instances/"
-InstanceName = "Instance_0.json"
+InstanceName = "Instance_3.json"
 solver = "GREEDY" #Available: "GREEDY" // "GRASP"
 
 def main():

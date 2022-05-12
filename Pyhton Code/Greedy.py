@@ -36,11 +36,11 @@ class Node:
     def __init__(self,ID,OriginalCode):
         self.id = ID
         self.code = OriginalCode
-        self.FromId = -1
         self.ToId = -1
+        self.conections = 0
     
     def __str__(self):
-        return "Node id: " + str(self.id) + " with code: " + str(self.code) +  "From Node: " + str(self.FromId) + " To Node: " + str(self.ToId)
+        return "Node id: " + str(self.id) +  " To Node: " + str(self.ToId) + " Conections: " + str(self.conections) + " with code: " + str(self.code)
     
 
 class Solver_Greedy:
@@ -55,53 +55,89 @@ class Solver_Greedy:
         totalCost = 0
         #self.getFeasibleLinks()
         
-        while self.solution != self.graph.nodes: #while the solution is different from the candidate set
-        #Get the Feasible links for the current solution
-            candidates = self.getFeasibleLinks()
-            self.UpdateSolution(candidates[0])
-            
+        while len(self.solution) != len(self.graph.nodes): #while the solution is different from the candidate set
             #Print partial solution
-            self.PrintSolution()
+            #self.PrintSolution()
+            #Get the Feasible links for the current solution
+            candidates = self.getFeasibleLinks()
+            self.UpdateSolution(candidates[0],False)
+            
         
-        #Return the solution     
-        return self.solution
-    
+        #Update solution with the last node that have 1 conection
+        for i in range(len(self.graph.nodes)):
+            if(self.graph.nodes[i].conections == 1): 
+                firstNode = self.graph.nodes[i]
+                for j in range(len(self.graph.nodes)):
+                    if(self.graph.nodes[j].conections == 1 and self.graph.nodes[j] != firstNode):
+                        secondNode = self.graph.nodes[j]
+                        lastCandidate = (self.graph.costMatrix[self.graph.nodes[i].id][self.graph.nodes[j].id],self.graph.nodes[i].id,self.graph.nodes[j])
+                        self.UpdateSolution(lastCandidate,True)
+                        break
+
+        #Return the solution 
+        print("FINAL SOLUTION FOUND:")
+        self.PrintSolution()    
+        return self.solution    
     
     def getFeasibleLinks(self):
         candidates = []
-        #For each node inside the solution, check to whivh nodes we can move        
+        #For each node inside the solution, check to whivh nodes we can move                     
         for i in range(len(self.solution)):
-            for j in range(len(self.graph.nodes)):
-                #You can not move from the node i in the solution to the same node
-                if(self.solution[i].id != self.graph.nodes[j].id):
-                    #Add Nodes that there are not conected to any other node
-                    if(self.graph.nodes[j].FromId == -1 and self.graph.nodes[j].ToId == -1):
-                        #cadidate = (cost,i(fromID),j(toID),node)
-                        candidateNode = (self.graph.costMatrix[self.solution[i].id][self.graph.nodes[j].id],self.solution[i].id,self.graph.nodes[j].id,self.graph.nodes[j])
-                        candidates.append(candidateNode)
-                    #Check the nodes that have 1 conection to other node
+            if(self.solution[i].conections < 2): #check only the nodes in solution that have less than 2 conections
+                for j in range(len(self.graph.nodes)):
+                    #You can not move from the node i in the solution to the same node
+                    if(self.solution[i].id != self.graph.nodes[j].id):
+                        #Add Nodes that there are not conected to any other node conections = 0
+                        if(self.graph.nodes[j].conections == 0):
+                            #cadidate = (cost,i(fromID),j(toID),node)
+                            candidateNode = (self.graph.costMatrix[self.solution[i].id][self.graph.nodes[j].id],self.solution[i].id,self.graph.nodes[j])
+                            if not candidateNode in candidates:
+                                candidates.append(candidateNode)
+                        #Check the nodes that have 1 conection to other node
+                    
                     
                     
         
         #Sort the candidates by the cost, puting the minimun cost at the beguining
         candidates.sort(key=lambda x:x[0])
+        
+        #Visualization porpouses
+        for i in range(len(candidates)):
+            print("Candidate From: " + str(candidates[i][1]) + " To: " + str(candidates[i][2].id) + " Cost: " + str(candidates[i][0]))
+        #print(candidates)
         #Return the sorted list
-        print(candidates)
+        
         return candidates
 
 
-    def UpdateSolution(self,SelectedCandidate):
+    def UpdateSolution(self,SelectedCandidate,IslastCandidate):
         #Get the first candidate node (it is the best as far as the list is sorted)and update node links
-        self.graph.nodes[SelectedCandidate[1]].ToId = SelectedCandidate[2]
-        self.graph.nodes[SelectedCandidate[2]].FromId = SelectedCandidate[1]
+        
+        for i in range(len(self.graph.nodes)):
+            if(self.graph.nodes[i].id == SelectedCandidate[1]):
+                self.graph.nodes[i].conections += 1
+                SelectedCandidate[2].conections += 1
+                #Update Links
+                #If solution node (ToId) is -1 -> Update it to the selected graph node
+                if(self.graph.nodes[i].ToId == -1):
+                    self.graph.nodes[i].ToId = SelectedCandidate[2].id
+                #if solution node (toId) != -1 (so it is conected with some other node) -> graph node (toID) is updated to the solution node
+                elif(self.graph.nodes[i].ToId != -1):
+                    SelectedCandidate[2].ToId = self.graph.nodes[i].id
+        
+        
         self.totalCost += SelectedCandidate[0]
         #Put the node in the solution
-        self.solution.append(SelectedCandidate[3])
+        if(not IslastCandidate):
+            self.solution.append(SelectedCandidate[2])
+        self.PrintSolution()
         
         
     def PrintSolution(self):
+        print("Cost: " + str(self.totalCost))
         for i in range(len(self.solution)):
             print(self.solution[i])
+            
             
             
             
