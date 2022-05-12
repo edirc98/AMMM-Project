@@ -50,32 +50,35 @@ class InstanceGenerator:
                     print("Generating instance with: n = " + str(n) + " m = " + str(m))
                     validCombination = True
                     InstanceGenerator.GenerateInstance(self,n,m)
-                    print("Codes generated: ")
-                    self.PrintCodes()
+                    filename = "Instance_" + str(i) + ".json"
+                    self.SaveInstanceToJson(n,m,filename)
                     
-                    #Put the instance to a .json file
-                    instanceDict = {
-                        "n": n,
-                        "m": m,
-                        "codes": self.codes
-                    }
-                    #Create the dictionari with the instance data
-                    json_data = json.dumps(instanceDict)
-                    
-                    #Create the path where the files will be stored if do not exists
-                    path = 'Instances/'
-                    if not os.path.exists(path):
-                        os.makedirs(path)
+    def SaveInstanceToJson(self,n,m,filename):
+        #Put the instance to a .json file
+        instanceDict = {
+            "n": n,
+            "m": m,
+            "codes": self.codes
+        }
+        #Create the dictionari with the instance data
+        json_data = json.dumps(instanceDict)
+        
+        #Create the path where the files will be stored if do not exists
+        path = 'Instances/'
+        if not os.path.exists(path):
+            os.makedirs(path)
 
-                    #Create the file and write it to the corresponding.json
-                    filename = 'Instance_'+ str(i) + '.json'
-                    with open(path+filename, 'w') as outfile:
-                        json.dump(json_data, outfile)
-                        
-                    #clear the codes that just generated for the next one
-                    self.codes.clear()
-      
-      
+        #Create the file and write it to the corresponding.json
+        with open(path+filename, 'w') as outfile:
+            json.dump(json_data, outfile)
+            
+        #clear the codes that just generated for the next one
+        self.codes.clear()
+                    
+    def SaveInstanceToDat(self):
+        #ROGER PROGRAMA
+        pass
+        
     def ReadInstance(self, InstanceFile):
         with open(InstanceFile) as json_file:
             json_string = json.load(json_file)
