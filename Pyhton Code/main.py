@@ -5,22 +5,22 @@ from Grasp import Solver_Grasp
 
 ############## Configuration of Instance Generator################
 #Number of instances that will be generated
-numInstances = 5
+numInstances = 1
 # Minimum number of codes 
-min_n = 10
+min_n = 500
 #Maximum number of codes
-max_n = 20
+max_n = 500
 #Minumum lenght of each code
-min_m = 5
+min_m = 10
 #Maximum lenght of each code
 max_m = 10
 
 ###################CONFIGURATION################
 #Bool if you want to generate instances or not
-GenerateInstanes = False
-InstancesFolder = "Instances/"
+GenerateInstanes = True
+InstancesFolder = "Inastances/"
 InstanceName = "Instance_0.json"
-runSolver = True #Change this if you only want to generate instances and do not run the solver
+runSolver = False #Change this if you only want to generate instances and do not run the solver
 solver = "GRASP" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 

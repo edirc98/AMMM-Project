@@ -46,7 +46,7 @@ class InstanceGenerator:
                 n = random.randint(self.min_n,self.max_n)
                 m = random.randint(self.min_m,self.max_m)
                 #Number of posible combinations of binary digits of lenght m > that n codes that can be generated
-                if ((2^m) > n):
+                if ((2**m) > n):
                     print("Generating instance with: n = " + str(n) + " m = " + str(m))
                     validCombination = True
                     InstanceGenerator.GenerateInstance(self,n,m)
