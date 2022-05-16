@@ -15,10 +15,10 @@ m = 10
 
 ###################CONFIGURATION################
 #Bool if you want to generate instances or not
-GenerateInstanes = True
-InstancesFolder = "Inastances/"
+GenerateInstanes = False
+InstancesFolder = "Instances/"
 InstanceName = "Instance_0.json"
-runSolver = False #Change this if you only want to generate instances and do not run the solver
+runSolver = True #Change this if you only want to generate instances and do not run the solver
 solver = "GRASP" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 
@@ -44,5 +44,5 @@ def main():
             Grasp = Solver_Grasp(InstanceGraph,alphaValue)
             Grasp.solve()
     
-
+    
 main()

@@ -71,6 +71,8 @@ class Solver_Greedy:
         self.totalCost = self.getCost()
         #Return the solution 
         print("FINAL SOLUTION FOUND:")
+        orderedSolution = self.SortSolution()
+        self.solution = orderedSolution
         self.PrintSolution()    
         return self.solution    
     
@@ -93,8 +95,8 @@ class Solver_Greedy:
         candidates.sort(key=lambda x:x[0])
         
         #Visualization porpouses
-        for i in range(len(candidates)):
-            print("Candidate From: " + str(candidates[i][1]) + " To: " + str(candidates[i][2].id) + " Cost: " + str(candidates[i][0]))
+        #for i in range(len(candidates)):
+            #print("Candidate From: " + str(candidates[i][1]) + " To: " + str(candidates[i][2].id) + " Cost: " + str(candidates[i][0]))
         #Return the sorted list
         return candidates
 
@@ -115,16 +117,28 @@ class Solver_Greedy:
         
         #Put the node in the solution
         if(not IslastCandidate):
-            self.solution.append(SelectedCandidate[2])
-        self.PrintSolution()
-        
+            self.solution.append(SelectedCandidate[2])        
         
     def getCost(self):
         totalCost = 0
         for i in range(len(self.solution)):
             totalCost += self.graph.costMatrix[self.solution[i].id][self.solution[i].ToId]
         return totalCost
+       
+    def SortSolution(self):
+        OrderedSolution = []
+        OrderedSolution.append(self.solution[0])
         
+        for node in OrderedSolution:
+            for i in range(len(self.solution)):
+                if len(self.solution) == len(OrderedSolution):
+                    break
+                if self.solution[i].id == node.ToId:
+                    OrderedSolution.append(self.solution[i])
+        
+        return OrderedSolution
+                
+               
     def PrintSolution(self):
         print("Cost: " + str(self.totalCost))
         for i in range(len(self.solution)):
