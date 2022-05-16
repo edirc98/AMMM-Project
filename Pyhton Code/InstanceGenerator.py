@@ -3,12 +3,10 @@ import random
 import os
 
 class InstanceGenerator:
-    
-    def __init__(self, NumInstances,Min_n,Max_n,Min_m,Max_m):
+    def __init__(self, NumInstances,Min_n,Max_n,numberOfDigits):
         self.min_n = Min_n
         self.max_n = Max_n
-        self.min_m = Min_m
-        self.max_m = Max_m
+        self.m = numberOfDigits
         
         self.numInstances = NumInstances
         self.codes = []
@@ -37,24 +35,31 @@ class InstanceGenerator:
                     valid = True
                 else: self.code.clear()
               
-    def GenerateInstances(self):
-        for i in range(0,self.numInstances):
-            #create combinations of n and m
-            validCombination = False
-            
-            while validCombination == False:
-                n = random.randint(self.min_n,self.max_n)
-                m = random.randint(self.min_m,self.max_m)
-                #Number of posible combinations of binary digits of lenght m > that n codes that can be generated
-                if ((2**m) > n):
-                    print("Generating instance with: n = " + str(n) + " m = " + str(m))
-                    validCombination = True
-                    InstanceGenerator.GenerateInstance(self,n,m)
-                    filename = "Instance_" + str(i)
-                    self.SaveInstanceToJson(n,m,filename)
-                    self.SaveInstanceToDat(n,m,filename)
-                    # clear the codes that just generated for the next one
-                    self.codes.clear()
+    def GenerateInstances(self,randomInstances = True):
+        if((2**self.m < self.max_n)):
+            print("You can not create more codes than posible combinations of m binary digits")
+        else:
+            numberOfCodes = []
+            if randomInstances:
+                numberOfCodes = random.sample(range(self.min_n, self.max_n), self.numInstances)
+                numberOfCodes.sort()
+            else:
+                for i in range(1,self.numInstances+1):
+                    numberOfCodes.append(i*10)
+                    
+            print("Number of codes: ")
+            print(numberOfCodes)
+            for i in range(0,len(numberOfCodes)):
+                #create combinations of n and m
+                n = numberOfCodes[i]
+                print("Generating instance with: n = " + str(n) + " m = " + str(self.m))
+                validCombination = True
+                InstanceGenerator.GenerateInstance(self,n,self.m)
+                filename = "Instance_" + str(i)
+                self.SaveInstanceToJson(n,self.m,filename)
+                self.SaveInstanceToDat(n,self.m,filename)
+                # clear the codes that just generated for the next one
+                self.codes.clear()
                     
     def SaveInstanceToJson(self,n,m,filename):
         #Put the instance to a .json file

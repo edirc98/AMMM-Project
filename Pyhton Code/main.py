@@ -5,15 +5,13 @@ from Grasp import Solver_Grasp
 
 ############## Configuration of Instance Generator################
 #Number of instances that will be generated
-numInstances = 1
+numInstances = 5
 # Minimum number of codes 
-min_n = 500
+min_n = 10
 #Maximum number of codes
-max_n = 500
-#Minumum lenght of each code
-min_m = 10
-#Maximum lenght of each code
-max_m = 10
+max_n = 50
+#number of digits of each code
+m = 10
 
 ###################CONFIGURATION################
 #Bool if you want to generate instances or not
@@ -26,9 +24,10 @@ alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 
 def main():
     
-    InstanceGen = InstanceGenerator(numInstances,min_n, max_n, min_m,max_m)
+    InstanceGen = InstanceGenerator(numInstances,min_n, max_n,m)
     if(GenerateInstanes):
-        InstanceGen.GenerateInstances()
+        InstanceGen.GenerateInstances(randomInstances=False) #Change this to True if you want random instances between min_n and max_n number of codes
+                                                             #False will create instances with numInstances*10 (10,20,30...) number of codes
        
     if runSolver: 
         #Get the dictionari with the data form the instance
