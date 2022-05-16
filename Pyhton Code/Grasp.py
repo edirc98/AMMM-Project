@@ -1,48 +1,11 @@
-class Graph: 
-    def __init__(self,Instance_dict):
-        self.data = Instance_dict
-        self.nodes = []
-        self.costMatrix = []
-        
-    def GenerateGraph(self):
-        #Generate the "n" nodes, empty, without conections
-        #print("Generating nodes...")
-        for i in range(0,self.data["n"]):
-            node = Node(i,self.data["codes"][i])
-            self.nodes.append(node)
-        
-        #Generate the cost matrix of each code
-        for i in range(len(self.data["codes"])):
-            costforI = []
-            for j in range(len(self.data["codes"])):
-                cost = 0
-                for z in range(len(self.data["codes"][i])):
-                    if self.data["codes"][i][z] != self.data["codes"][j][z]:
-                        cost+=1
-                costforI.append(cost)
-            self.costMatrix.append(costforI.copy())
-    
-    def PrintGraph(self):
-        for i in range(len(self.nodes)):
-            print(self.nodes[i])
-            
-        for i in range(len(self.costMatrix)):
-            print(self.costMatrix[i]) 
+from Greedy import Node
+from Greedy import Graph
+import random
 
-class Node:
-    def __init__(self,ID,OriginalCode):
-        self.id = ID
-        self.code = OriginalCode
-        self.ToId = -1
-        self.conections = 0
-    
-    def __str__(self):
-        return "Node id: " + str(self.id) +  " To Node: " + str(self.ToId) + " Conections: " + str(self.conections) + " with code: " + str(self.code)
-    
-
-class Solver_Greedy:
-    def __init__(self, graphData):
+class Solver_Grasp:
+    def __init__(self,graphData,AlphaValue):
         self.graph = graphData
+        self.alpha = AlphaValue
         self.solution = []
         self.totalCost = 0
     def solve(self):
@@ -54,7 +17,25 @@ class Solver_Greedy:
             #self.PrintSolution()
             #Get the Feasible links for the current solution
             candidates = self.getFeasibleLinks()
-            self.UpdateSolution(candidates[0],False)
+            #Compute the posible random candidates to be chosen
+            q_min = candidates[0][0]
+            q_max = candidates[-1][0]
+            q_candidate = int(q_min + self.alpha*(q_max-q_min))
+            stopIndex = 0
+            for i in range(len(candidates)):
+                if candidates[i][0]>q_candidate:
+                    stopIndex = i
+                    break
+            candidates = candidates[0:stopIndex]
+                
+            print("Max Q: " + str(q_candidate))
+            print("Sliced Candidates: ")
+            print(candidates)
+                        
+            #Chose the random candidate
+            selectedCandidate = random.choice(candidates)
+            
+            self.UpdateSolution(selectedCandidate,False)
             
         
         #Update solution with the last node that have 1 conection
@@ -95,7 +76,7 @@ class Solver_Greedy:
         #Visualization porpouses
         for i in range(len(candidates)):
             print("Candidate From: " + str(candidates[i][1]) + " To: " + str(candidates[i][2].id) + " Cost: " + str(candidates[i][0]))
-        #Return the sorted list
+        #Return the sorted list        
         return candidates
 
     def UpdateSolution(self,SelectedCandidate,IslastCandidate):
@@ -129,4 +110,7 @@ class Solver_Greedy:
         print("Cost: " + str(self.totalCost))
         for i in range(len(self.solution)):
             print(self.solution[i])
+
+
+
         

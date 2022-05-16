@@ -1,6 +1,7 @@
 from InstanceGenerator import InstanceGenerator
 from Greedy import Graph
 from Greedy import Solver_Greedy
+from Grasp import Solver_Grasp
 
 ############## Configuration of Instance Generator################
 #Number of instances that will be generated
@@ -16,15 +17,17 @@ max_m = 10
 
 ###################CONFIGURATION################
 #Bool if you want to generate instances or not
-GenerateInstanes = True
+GenerateInstanes = False
 InstancesFolder = "Instances/"
 InstanceName = "Instance_0.json"
-runSolver = False #Change this if you only want to generate instances and do not run the solver
-solver = "GREEDY" #Available: "GREEDY" // "GRASP"
+runSolver = True #Change this if you only want to generate instances and do not run the solver
+solver = "GRASP" #Available: "GREEDY" // "GRASP"
+alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 
 def main():
+    
+    InstanceGen = InstanceGenerator(numInstances,min_n, max_n, min_m,max_m)
     if(GenerateInstanes):
-        InstanceGen = InstanceGenerator(numInstances,min_n, max_n, min_m,max_m)
         InstanceGen.GenerateInstances()
        
     if runSolver: 
@@ -39,10 +42,8 @@ def main():
             Greedy = Solver_Greedy(InstanceGraph)
             Greedy.solve()
         elif solver == "GRASP":
-            #TODO Implement GRASP
-            pass
+            Grasp = Solver_Grasp(InstanceGraph,alphaValue)
+            Grasp.solve()
     
-    
-
 
 main()

@@ -1,7 +1,6 @@
 import json
 import random 
 import os
-import pickle
 
 class InstanceGenerator:
     
