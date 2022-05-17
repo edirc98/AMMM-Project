@@ -137,8 +137,7 @@ class Solver_Greedy:
                     OrderedSolution.append(self.solution[i])
         
         return OrderedSolution
-                
-               
+                        
     def PrintSolution(self):
         print("Cost: " + str(self.totalCost))
         for i in range(len(self.solution)):

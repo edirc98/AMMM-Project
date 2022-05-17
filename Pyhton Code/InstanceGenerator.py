@@ -35,7 +35,7 @@ class InstanceGenerator:
                     valid = True
                 else: self.code.clear()
               
-    def GenerateInstances(self,randomInstances = True):
+    def GenerateInstances(self,randomInstances = True, n1 = 0,n2 = 0,):
         if((2**self.m < self.max_n)):
             print("You can not create more codes than posible combinations of m binary digits")
         else:
@@ -44,8 +44,8 @@ class InstanceGenerator:
                 numberOfCodes = random.sample(range(self.min_n, self.max_n), self.numInstances)
                 numberOfCodes.sort()
             else:
-                for i in range(1,self.numInstances+1):
-                    numberOfCodes.append(i*10)
+                for i in range(n1,n2+1):
+                    numberOfCodes.append(i)
                     
             print("Number of codes: ")
             print(numberOfCodes)
