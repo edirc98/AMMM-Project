@@ -1,18 +1,26 @@
 
+import copy
+
+
 class Heuristic_LocalSearch:
     def __init__(self,Feasible_Solution,Cost_Matrix):
         self.solution = Feasible_Solution
         self.costMatrix = Cost_Matrix
         self.totalCost = self.getCost(self.solution)
         self.bestSolution = []
+        self.i = 0
+        self.j = 0
     
     
     #2-edge exchange or (2-opt) heuristic
     def doLocalSearch(self):
         #print (self.costMatrix)
         #Check all posible combinations of two nodes( going from node i to node j)
-        for i in range(len(self.solution)):
-            for j in range(len(self.solution)):
+        for self.i in range(len(self.solution)):
+            for self.j in range(len(self.solution)):
+                i = self.i
+                j = self.j
+                print(str(i)+ " - " + str(j))
                 #First avoid combinations of node with itself, as cost is 0
                 if i != j:
                     #Check if the combination of nodes to exchange is usefull or not
@@ -43,7 +51,8 @@ class Heuristic_LocalSearch:
             self.checkSolution(i,j)
         
     def checkSolution(self,i,j):
-        testingSolution = self.solution
+        print("Testing posible better solution...")
+        testingSolution = copy.deepcopy(self.solution)
         #Get the part of the solution between i and j and reverse it
         if i < j:
             testingSolution[i:j] = reversed(testingSolution[i:j])
@@ -55,15 +64,17 @@ class Heuristic_LocalSearch:
             if i == (len(testingSolution)-1):
                 testingSolution[i].ToId = testingSolution[0].id
             else: 
-                testingSolution[i].ToId = testingSolution[i+1].id
-        
-        
+                testingSolution[i].ToId = testingSolution[i+1].id        
         testingSolutionCost = self.getCost(testingSolution)
+        
         if(testingSolutionCost < self.totalCost):
-            print("New Solution found")    
+            print("##########- New better Solution found -##########")    
             self.totalCost = testingSolutionCost
-            self.solution = testingSolution
-            #self.PrintSolution()
+            self.solution = copy.deepcopy(testingSolution)
+            self.i = 0
+            self.j = 0
+            self.PrintSolution()
+            
     
     
     def getCost(self,solution):
