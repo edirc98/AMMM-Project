@@ -16,34 +16,36 @@ class Heuristic_LocalSearch:
     def doLocalSearch(self):
         #print (self.costMatrix)
         #Check all posible combinations of two nodes( going from node i to node j)
-        for self.i in range(len(self.solution)):
-            for self.j in range(len(self.solution)):
-                i = self.i
-                j = self.j
-                print(str(i)+ " - " + str(j))
+        while self.i < len(self.solution):
+            while self.j < len(self.solution):
+                print(str(self.i)+ " - " + str(self.j))
                 #First avoid combinations of node with itself, as cost is 0
-                if i != j:
+                if self.i != self.j:
                     #Check if the combination of nodes to exchange is usefull or not
                     #If the cost of the actual path is lower that the new path, it is NOT usefull
                     #Special cases when i is 0 or j is len
-                    if i == 0:
-                        if j == (len(self.solution)-1):
-                            self.computeExchange(i,j,-1,0)
+                    if self.i == 0:
+                        if self.j == (len(self.solution)-1):
+                            self.computeExchange(self.i,self.j,-1,0)
                         else:
-                            self.computeExchange(i,j,-1,j+1) #What happens here
-                    elif j == (len(self.solution)-1):
-                        if i == 0: 
-                            self.computeExchange(i,j,-1,0)
+                            self.computeExchange(self.i,self.j,-1,self.j+1) #What happens here
+                    elif self.j == (len(self.solution)-1):
+                        if self.i == 0: 
+                            self.computeExchange(self.i,self.j,-1,0)
                         else: 
-                            self.computeExchange(i,j,i-1,0)
+                            self.computeExchange(self.i,self.j,self.i-1,0)
                     else: 
-                        self.computeExchange(i,j,i-1,j+1)
-                        
+                        self.computeExchange(self.i,self.j,self.i-1,self.j+1)
+                self.j += 1
+            self.j = 0
+            self.i += 1
+            
         print("Ended local search. ")
         print("Best solution founded is: ")
-        self.PrintSolution()
-                            
-
+        self.PrintSolution() 
+        #for self.i in range(len(self.solution)):
+            #for self.j in range(len(self.solution)):
+                
     def computeExchange(self, i,j,mi,pj):
         actualCost = self.costMatrix[self.solution[mi].id][self.solution[i].id] + self.costMatrix[self.solution[j].id][self.solution[pj].id] 
         exchangeCost = self.costMatrix[self.solution[mi].id][self.solution[j].id] + self.costMatrix[self.solution[i].id][self.solution[pj].id]
@@ -67,22 +69,22 @@ class Heuristic_LocalSearch:
                 testingSolution[i].ToId = testingSolution[i+1].id        
         testingSolutionCost = self.getCost(testingSolution)
         
+        #Firts improvement procedure
         if(testingSolutionCost < self.totalCost):
             print("##########- New better Solution found -##########")    
             self.totalCost = testingSolutionCost
             self.solution = copy.deepcopy(testingSolution)
+            #Reestart the while loops for star searching again
             self.i = 0
             self.j = 0
             self.PrintSolution()
             
-    
     
     def getCost(self,solution):
         tourCost = 0
         for i in range(len(solution)):
             tourCost += self.costMatrix[solution[i].id][solution[i].ToId]
         return tourCost
-       
        
     def PrintSolution(self):
         print("Cost: " + str(self.totalCost))
