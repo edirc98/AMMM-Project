@@ -18,7 +18,7 @@ class Heuristic_LocalSearch:
         #Check all posible combinations of two nodes( going from node i to node j)
         while self.i < len(self.solution):
             while self.j < len(self.solution):
-                print(str(self.i)+ " - " + str(self.j))
+                #print(str(self.i)+ " - " + str(self.j))
                 #First avoid combinations of node with itself, as cost is 0
                 if self.i != self.j:
                     #Check if the combination of nodes to exchange is usefull or not
@@ -40,9 +40,9 @@ class Heuristic_LocalSearch:
             self.j = 0
             self.i += 1
             
-        print("Ended local search. ")
-        print("Best solution founded is: ")
-        self.PrintSolution() 
+        #print("Ended local search. ")
+        #print("Best solution founded is: ")
+        #self.PrintSolution()
         #for self.i in range(len(self.solution)):
             #for self.j in range(len(self.solution)):
                 
@@ -53,7 +53,7 @@ class Heuristic_LocalSearch:
             self.checkSolution(i,j)
         
     def checkSolution(self,i,j):
-        print("Testing posible better solution...")
+        #print("Testing posible better solution...")
         testingSolution = copy.deepcopy(self.solution)
         #Get the part of the solution between i and j and reverse it
         if i < j:
@@ -71,13 +71,13 @@ class Heuristic_LocalSearch:
         
         #Firts improvement procedure
         if(testingSolutionCost < self.totalCost):
-            print("##########- New better Solution found -##########")    
+            #print("##########- New better Solution found in localsearch -##########")
             self.totalCost = testingSolutionCost
             self.solution = copy.deepcopy(testingSolution)
             #Reestart the while loops for star searching again
             self.i = 0
             self.j = 0
-            self.PrintSolution()
+            #self.PrintSolution()
             
     
     def getCost(self,solution):

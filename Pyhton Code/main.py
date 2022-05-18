@@ -3,6 +3,8 @@ from Greedy import Graph
 from Greedy import Solver_Greedy
 from Grasp import Solver_Grasp
 from LocalSearch import Heuristic_LocalSearch
+import time
+
 
 ############## Configuration of Instance Generator################
 #Number of instances that will be generated
@@ -16,13 +18,15 @@ m = 10
 
 ###################CONFIGURATION################
 #Bool if you want to generate instances or not
-GenerateInstanes = False
+GenerateInstanes = False #True generates new instances and overwrites existing ones.
 InstancesFolder = "Instances/"
-InstanceName = "Instance_3.json"
-runSolver = True #Change this if you only want to generate instances and do not run the solver
+InstanceName = "Instance_10.json" #The name of the instance file you want to load.
+runSolver = True #True runs the solver
 solver = "GRASP" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 doLocalSearch = True #True if you want to apply local search
+maxRunningTime = 60 #Only used in grasp+localsearch
+debug = True #Prints a lot of info
 
 def main():
     
@@ -37,7 +41,7 @@ def main():
         
         InstanceGraph = Graph(Instance_data)
         InstanceGraph.GenerateGraph()
-        
+        start_time = time.time()
         #Call the solver with the Graph data constructed
         if solver == "GREEDY":
             Greedy = Solver_Greedy(InstanceGraph)
@@ -46,11 +50,23 @@ def main():
                 ls = Heuristic_LocalSearch(greedy_feasibleSolution,Greedy.graph.costMatrix)
                 ls.doLocalSearch()
         elif solver == "GRASP":
-            Grasp = Solver_Grasp(InstanceGraph,alphaValue)
-            grasp_feasibleSolution = Grasp.solve()
-            if(doLocalSearch):
-                ls = Heuristic_LocalSearch(grasp_feasibleSolution,Grasp.graph.costMatrix)
-                ls.doLocalSearch()
-    
+            bestFoundCost=10000000;
+            bestSolution=None;
+            while((time.time()-start_time)<maxRunningTime):
+                Grasp = Solver_Grasp(InstanceGraph, alphaValue)
+                grasp_feasibleSolution = Grasp.solve()
+                if(doLocalSearch):
+                        ls = Heuristic_LocalSearch(grasp_feasibleSolution,Grasp.graph.costMatrix)
+                        ls.doLocalSearch()
+                if(ls.totalCost<bestFoundCost):
+                    print("##########- New better Solution found in grasp -##########")
+                    ls.PrintSolution()
+                    bestFoundCost=ls.totalCost
+                    bestSolution=ls
+            print("Solution after timeout")
+            bestSolution.PrintSolution()
+
+        end_time = time.time()
+        print(f'-- Solving time {(end_time - start_time)} seconds ---') #nanosecond precision is dependant on architecture, so solving time can be show as 0.0 sometimes
     
 main()

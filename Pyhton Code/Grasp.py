@@ -1,10 +1,11 @@
 from Greedy import Node
 from Greedy import Graph
 import random
+import copy
 
 class Solver_Grasp:
     def __init__(self,graphData,AlphaValue):
-        self.graph = graphData
+        self.graph = copy.deepcopy(graphData)
         self.alpha = AlphaValue
         self.solution = []
         self.totalCost = 0
@@ -53,10 +54,10 @@ class Solver_Grasp:
         #Compute the cost of the solution
         self.totalCost = self.getCost()
         #Return the solution 
-        print("FINAL SOLUTION FOUND:")
+        #print("FINAL SOLUTION FOUND:")
         orderedSolution = self.SortSolution()
         self.solution = orderedSolution
-        self.PrintSolution()    
+        #self.PrintSolution()
         return self.solution    
     
     def getFeasibleLinks(self):
