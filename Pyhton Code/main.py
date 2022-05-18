@@ -50,7 +50,7 @@ def main():
                 ls = Heuristic_LocalSearch(greedy_feasibleSolution,Greedy.graph.costMatrix)
                 ls.doLocalSearch()
         elif solver == "GRASP":
-            bestFoundCost=10000000;
+            bestFoundCost=float('inf');
             bestSolution=None;
             while((time.time()-start_time)<maxRunningTime):
                 Grasp = Solver_Grasp(InstanceGraph, alphaValue)

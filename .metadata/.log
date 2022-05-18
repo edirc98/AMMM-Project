@@ -1,0 +1,27 @@
+!SESSION 2022-05-17 13:22:44.518 -----------------------------------------------
+eclipse.buildId=Build R0
+java.fullversion=8.0.5.41 - pwa6480sr5fp41-20190919_01(SR5 FP41)
+JRE 1.8.0 Windows 8 amd64-64-Bit Compressed References 20190911_427071 (JIT enabled, AOT enabled)
+OpenJ9   - d581d49
+OMR      - ca4db84
+IBM      - 5cfdf9c
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -clean
+
+!ENTRY ilog.odms.ide.opllang 1 0 2022-05-17 13:24:03.519
+!MESSAGE concert_wrap.IloEndMT
+!SESSION 2022-05-17 13:24:04.467 -----------------------------------------------
+eclipse.buildId=Build R0
+java.fullversion=8.0.5.41 - pwa6480sr5fp41-20190919_01(SR5 FP41)
+JRE 1.8.0 Windows 8 amd64-64-Bit Compressed References 20190911_427071 (JIT enabled, AOT enabled)
+OpenJ9   - d581d49
+OMR      - ca4db84
+IBM      - 5cfdf9c
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -clean -data C:\Users\UPC\Documents\GitHub\AMMM-Project\ -clean
+
+!ENTRY org.eclipse.ui.ide 4 4 2022-05-17 13:24:12.033
+!MESSAGE -data /valid/path, workspace already set:file:/C:/Users/UPC/Documents/GitHub/AMMM-Project/
+
+!ENTRY ilog.odms.ide.opllang 1 0 2022-05-17 13:24:31.204
+!MESSAGE concert_wrap.IloEndMT
