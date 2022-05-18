@@ -6,7 +6,7 @@ int m = ...;
 // Number of codes.
 int n = ...;
 
-// Codes.
+// Codes	
 // Input should satisfy the following precondition:
 // the 0-th code is n zeroes: 000..000
 int S[0..n-1][0..m-1] = ...;
