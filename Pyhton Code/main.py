@@ -20,22 +20,24 @@ m = 10
 #Bool if you want to generate instances or not
 GenerateInstanes = False #True generates new instances and overwrites existing ones.
 InstancesFolder = "Instances/"
-InstanceName = "Instance_10.json" #The name of the instance file you want to load.
+InstanceName = "Instance_0.json" #The name of the instance file you want to load.
 runSolver = True #True runs the solver
 solver = "GRASP" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 doLocalSearch = True #True if you want to apply local search
 maxRunningTime = 60 #Only used in grasp+localsearch
-debug = True #Prints a lot of info
+reportTime = 10 #when to report current best solution
+
 
 def main():
     
     InstanceGen = InstanceGenerator(numInstances,min_n, max_n,m)
     if(GenerateInstanes):
-        InstanceGen.GenerateInstances(randomInstances=False,n1=5,n2=25) #Change this to True if you want random instances between min_n and max_n number of codes
+        InstanceGen.GenerateInstances(randomInstances=True,n1=5,n2=25) #Change this to True if you want random instances between min_n and max_n number of codes
                                                              #False will create instances with numInstances*10 (10,20,30...) number of codes
        
-    if runSolver: 
+    if runSolver:
+        print("--Reading data--")
         #Get the dictionari with the data form the instance
         Instance_data = InstanceGen.ReadInstance(InstancesFolder + InstanceName)
         
@@ -43,6 +45,7 @@ def main():
         InstanceGraph.GenerateGraph()
         start_time = time.time()
         #Call the solver with the Graph data constructed
+        print("--Running solver--")
         if solver == "GREEDY":
             Greedy = Solver_Greedy(InstanceGraph)
             greedy_feasibleSolution = Greedy.solve()
@@ -52,17 +55,23 @@ def main():
         elif solver == "GRASP":
             bestFoundCost=float('inf');
             bestSolution=None;
+            i=0;
             while((time.time()-start_time)<maxRunningTime):
                 Grasp = Solver_Grasp(InstanceGraph, alphaValue)
                 grasp_feasibleSolution = Grasp.solve()
                 if(doLocalSearch):
-                        ls = Heuristic_LocalSearch(grasp_feasibleSolution,Grasp.graph.costMatrix)
-                        ls.doLocalSearch()
-                if(ls.totalCost<bestFoundCost):
-                    print("##########- New better Solution found in grasp -##########")
-                    ls.PrintSolution()
-                    bestFoundCost=ls.totalCost
-                    bestSolution=ls
+                    ls = Heuristic_LocalSearch(grasp_feasibleSolution,Grasp.graph.costMatrix)
+                    ls.doLocalSearch()
+                    if(ls.totalCost<bestFoundCost):
+                        print("##########- New better Solution found in grasp -##########")
+                        ls.PrintSolution()
+                        bestFoundCost=ls.totalCost
+                        bestSolution=ls
+                    #Report every X seconds
+                    if(((time.time()-start_time)/reportTime)>i):
+                        i=i+1
+                        print(f'Time:{int(time.time()-start_time)} - Best solution so far:{bestSolution.totalCost}')
+
             print("Solution after timeout")
             bestSolution.PrintSolution()
 
