@@ -18,11 +18,11 @@ m = 10
 
 ###################CONFIGURATION################
 #Bool if you want to generate instances or not
-GenerateInstanes = False #True generates new instances and overwrites existing ones.
+GenerateInstances = False #True generates new instances and overwrites existing ones.
 InstancesFolder = "Instances/"
 InstanceName = "Instance_1.json" #The name of the instance file you want to load.
 runSolver = True #True runs the solver
-solver = "GRASP" #Available: "GREEDY" // "GRASP"
+solver = "GREEDY" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
 doLocalSearch = True #True if you want to apply local search
 maxRunningTime = 60 #Only used in grasp+localsearch
@@ -32,7 +32,7 @@ reportTime = 10 #when to report current best solution
 def main():
     
     InstanceGen = InstanceGenerator(numInstances,min_n, max_n,m)
-    if(GenerateInstanes):
+    if(GenerateInstances):
         InstanceGen.GenerateInstances(randomInstances=True,n1=5,n2=25) #Change this to True if you want random instances between min_n and max_n number of codes
                                                              #False will create instances with numInstances*10 (10,20,30...) number of codes
        
@@ -52,6 +52,11 @@ def main():
             if(doLocalSearch):
                 ls = Heuristic_LocalSearch(greedy_feasibleSolution,Greedy.graph.costMatrix)
                 ls.doLocalSearch()
+                print(f"Greedy + Local Search execution time: {time.time() - start_time}")
+                ls.PrintSolution()
+            else: 
+                print(f"Greedy execution time: {time.time() - start_time}")
+                Greedy.PrintSolution()
         elif solver == "GRASP":
             bestFoundCost=float('inf')
             bestSolution=None
