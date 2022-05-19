@@ -1,10 +1,11 @@
 from Greedy import Node
 from Greedy import Graph
 import random
+import copy
 
 class Solver_Grasp:
     def __init__(self,graphData,AlphaValue):
-        self.graph = graphData
+        self.graph = copy.deepcopy(graphData)
         self.alpha = AlphaValue
         self.solution = []
         self.totalCost = 0
@@ -26,15 +27,17 @@ class Solver_Grasp:
                 if candidates[i][0]>q_candidate:
                     stopIndex = i
                     break
+            #To make sure that at least gets the first element in the slicing and do not happens [0:0]
+            if stopIndex == 0: 
+                stopIndex = 1
             candidates = candidates[0:stopIndex]
                 
-            print("Max Q: " + str(q_candidate))
-            print("Sliced Candidates: ")
-            print(candidates)
+            #print("Max Q: " + str(q_candidate))
+            #print("Sliced Candidates: ")
+            #print(candidates)
                         
             #Chose the random candidate
             selectedCandidate = random.choice(candidates)
-            
             self.UpdateSolution(selectedCandidate,False)
             
         
@@ -51,8 +54,10 @@ class Solver_Grasp:
         #Compute the cost of the solution
         self.totalCost = self.getCost()
         #Return the solution 
-        print("FINAL SOLUTION FOUND:")
-        self.PrintSolution()    
+        #print("FINAL SOLUTION FOUND:")
+        orderedSolution = self.SortSolution()
+        self.solution = orderedSolution
+        #self.PrintSolution()
         return self.solution    
     
     def getFeasibleLinks(self):
@@ -74,8 +79,8 @@ class Solver_Grasp:
         candidates.sort(key=lambda x:x[0])
         
         #Visualization porpouses
-        for i in range(len(candidates)):
-            print("Candidate From: " + str(candidates[i][1]) + " To: " + str(candidates[i][2].id) + " Cost: " + str(candidates[i][0]))
+        #for i in range(len(candidates)):
+            #print("Candidate From: " + str(candidates[i][1]) + " To: " + str(candidates[i][2].id) + " Cost: " + str(candidates[i][0]))
         #Return the sorted list        
         return candidates
 
@@ -97,7 +102,7 @@ class Solver_Grasp:
         #Put the node in the solution
         if(not IslastCandidate):
             self.solution.append(SelectedCandidate[2])
-        self.PrintSolution()
+        #self.PrintSolution()
         
         
     def getCost(self):
@@ -106,6 +111,19 @@ class Solver_Grasp:
             totalCost += self.graph.costMatrix[self.solution[i].id][self.solution[i].ToId]
         return totalCost
         
+    def SortSolution(self):
+        OrderedSolution = []
+        OrderedSolution.append(self.solution[0])
+        
+        for node in OrderedSolution:
+            for i in range(len(self.solution)):
+                if len(self.solution) == len(OrderedSolution):
+                    break
+                if self.solution[i].id == node.ToId:
+                    OrderedSolution.append(self.solution[i])
+        
+        return OrderedSolution
+    
     def PrintSolution(self):
         print("Cost: " + str(self.totalCost))
         for i in range(len(self.solution)):
