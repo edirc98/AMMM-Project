@@ -8,11 +8,11 @@ import time
 
 ############## Configuration of Instance Generator################
 #Number of instances that will be generated
-numInstances = 5
+numInstances = 1
 # Minimum number of codes 
-min_n = 10
+min_n = 99
 #Maximum number of codes
-max_n = 50
+max_n = 100
 #number of digits of each code
 m = 10
 
@@ -20,7 +20,7 @@ m = 10
 #Bool if you want to generate instances or not
 GenerateInstanes = False #True generates new instances and overwrites existing ones.
 InstancesFolder = "Instances/"
-InstanceName = "Instance_0.json" #The name of the instance file you want to load.
+InstanceName = "Instance_1.json" #The name of the instance file you want to load.
 runSolver = True #True runs the solver
 solver = "GRASP" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
@@ -53,9 +53,9 @@ def main():
                 ls = Heuristic_LocalSearch(greedy_feasibleSolution,Greedy.graph.costMatrix)
                 ls.doLocalSearch()
         elif solver == "GRASP":
-            bestFoundCost=float('inf');
-            bestSolution=None;
-            i=0;
+            bestFoundCost=float('inf')
+            bestSolution=None
+            i=0
             while((time.time()-start_time)<maxRunningTime):
                 Grasp = Solver_Grasp(InstanceGraph, alphaValue)
                 grasp_feasibleSolution = Grasp.solve()

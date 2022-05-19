@@ -13,11 +13,9 @@ class Heuristic_LocalSearch:
     
     #2-edge exchange or (2-opt) heuristic
     def doLocalSearch(self):
-        #print (self.costMatrix)
         #Check all posible combinations of two nodes( going from node i to node j)
         while self.i < len(self.solution):
             while self.j < len(self.solution):
-                #print(str(self.i)+ " - " + str(self.j))
                 #First avoid combinations of node with itself, as cost is 0
                 if self.i != self.j:
                     #Check if the combination of nodes to exchange is usefull or not
@@ -53,30 +51,42 @@ class Heuristic_LocalSearch:
         
     def checkSolution(self,i,j):
         #print("Testing posible better solution...")
-        testingSolution = copy.deepcopy(self.solution)
+        #testingSolution = copy.deepcopy(self.solution)
         #Get the part of the solution between i and j and reverse it
         if i < j:
-            testingSolution[i:j] = reversed(testingSolution[i:j])
+            self.solution[i:j] = reversed(self.solution[i:j])
         elif j < i: 
-            testingSolution[j:i] = reversed(testingSolution[j:i])
+            self.solution[j:i] = reversed(self.solution[j:i])
         
         #relink ToId of the nodes
-        for i in range(len(testingSolution)):
-            if i == (len(testingSolution)-1):
-                testingSolution[i].ToId = testingSolution[0].id
+        for i in range(len(self.solution)):
+            if i == (len(self.solution)-1):
+                self.solution[i].ToId = self.solution[0].id
             else: 
-                testingSolution[i].ToId = testingSolution[i+1].id        
-        testingSolutionCost = self.getCost(testingSolution)
+                self.solution[i].ToId = self.solution[i+1].id        
+        testingSolutionCost = self.getCost(self.solution)
         
-        #Firts improvement procedure
+        #First improvement procedure
         if(testingSolutionCost < self.totalCost):
-            print(f'##########- New better Solution found in localsearch with cost {self.totalCost}-##########')
             self.totalCost = testingSolutionCost
-            self.solution = testingSolution
-            #Reestart the while loops for star searching again
+            #self.solution = testingSolution
+            #print(f'##########- New better Solution found in localsearch with cost {self.totalCost}-##########')
+            #Restart the while loops for start searching again
             self.i = 0
-            self.j = 0
-            #self.PrintSolution()
+            self.j = 0  
+        else:
+            if i < j:
+                self.solution[i:j] = reversed(self.solution[i:j])
+            elif j < i: 
+                self.solution[j:i] = reversed(self.solution[j:i])
+        
+            #relink ToId of the nodes
+            for i in range(len(self.solution)):
+                if i == (len(self.solution)-1):
+                    self.solution[i].ToId = self.solution[0].id
+                else: 
+                    self.solution[i].ToId = self.solution[i+1].id        
+            testingSolutionCost = self.getCost(self.solution)
             
     
     def getCost(self,solution):
