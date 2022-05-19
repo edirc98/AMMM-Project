@@ -7,7 +7,6 @@ class Heuristic_LocalSearch:
         self.solution = Feasible_Solution
         self.costMatrix = Cost_Matrix
         self.totalCost = self.getCost(self.solution)
-        self.bestSolution = []
         self.i = 0
         self.j = 0
     
@@ -71,9 +70,9 @@ class Heuristic_LocalSearch:
         
         #Firts improvement procedure
         if(testingSolutionCost < self.totalCost):
-            #print("##########- New better Solution found in localsearch -##########")
+            print(f'##########- New better Solution found in localsearch with cost {self.totalCost}-##########')
             self.totalCost = testingSolutionCost
-            self.solution = copy.deepcopy(testingSolution)
+            self.solution = testingSolution
             #Reestart the while loops for star searching again
             self.i = 0
             self.j = 0
