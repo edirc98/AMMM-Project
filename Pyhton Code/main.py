@@ -10,9 +10,9 @@ import time
 #Number of instances that will be generated
 numInstances = 1
 # Minimum number of codes 
-min_n = 99
+min_n = 500
 #Maximum number of codes
-max_n = 100
+max_n = 501
 #number of digits of each code
 m = 10
 
@@ -20,12 +20,12 @@ m = 10
 #Bool if you want to generate instances or not
 GenerateInstances = False #True generates new instances and overwrites existing ones.
 InstancesFolder = "Instances/"
-InstanceName = "Instance_1.json" #The name of the instance file you want to load.
+InstanceName = "Instance_5.json" #The name of the instance file you want to load.
 runSolver = True #True runs the solver
-solver = "GREEDY" #Available: "GREEDY" // "GRASP"
+solver = "GRASP" #Available: "GREEDY" // "GRASP"
 alphaValue = 0.7 #Only usefull if GRASP is selected as solver
-doLocalSearch = True #True if you want to apply local search
-maxRunningTime = 60 #Only used in grasp+localsearch
+doLocalSearch = False #True if you want to apply local search
+maxRunningTime = 600 #Only used in grasp+localsearch
 reportTime = 10 #when to report current best solution
 
 
@@ -50,6 +50,7 @@ def main():
             Greedy = Solver_Greedy(InstanceGraph)
             greedy_feasibleSolution = Greedy.solve()
             if(doLocalSearch):
+                print(f"Greedy execution time: {time.time() - start_time}")
                 ls = Heuristic_LocalSearch(greedy_feasibleSolution,Greedy.graph.costMatrix)
                 ls.doLocalSearch()
                 print(f"Greedy + Local Search execution time: {time.time() - start_time}")
@@ -76,7 +77,13 @@ def main():
                     if(((time.time()-start_time)/reportTime)>i):
                         i=i+1
                         print(f'Time:{int(time.time()-start_time)} - Best solution so far:{bestSolution.totalCost}')
-
+                else:
+                    if(Grasp.getCost()<bestFoundCost):
+                        bestFoundCost=Grasp.getCost()
+                        bestSolution=Grasp
+                    if (((time.time() - start_time) / reportTime) > i):
+                        i = i + 1
+                        print(f'Time:{int(time.time() - start_time)} - Best solution so far:{bestFoundCost}')
             print("Solution after timeout")
             bestSolution.PrintSolution()
 

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="ASCII"?><project>
+	<version>1.0</version>
+	<configs>
+		<config default="true" name="TestConfig1" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.1.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig2" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.2.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig3" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.3.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig4" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.4.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig5" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.5.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig6" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.6.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig7" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.7.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig8" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.8.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="TestConfig9" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="project.9.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration10" category="opl">
+			<ref name="Instance_10.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration11" category="opl">
+			<ref name="Instance_11.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration12" category="opl">
+			<ref name="Instance_12.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration13" category="opl">
+			<ref name="Instance_13.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration14" category="opl">
+			<ref name="Instance_14.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration15" category="opl">
+			<ref name="Instance_15.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration16" category="opl">
+			<ref name="Instance_16.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration17" category="opl">
+			<ref name="Instance_17.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration18" category="opl">
+			<ref name="Instance_18.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration19" category="opl">
+			<ref name="Instance_19.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration20" category="opl">
+			<ref name="Instance_20.dat" type="data">
+			</ref>
+			<ref name="project.mod" type="model">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration00" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_0.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration01" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_1.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration02" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_2.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration03" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_3.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration04" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_4.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration05" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_5.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration06" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_6.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration07" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_7.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration08" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_8.dat" type="data">
+			</ref>
+		</config>
+		<config default="false" name="FinalConfiguration09" category="opl">
+			<ref name="project.mod" type="model">
+			</ref>
+			<ref name="Instance_9.dat" type="data">
+			</ref>
+		</config>
+	</configs>
+	
+</project>
